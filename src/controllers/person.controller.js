@@ -26,6 +26,29 @@ module.exports = class PersonController {
     }
   }
 
+  // new codigo
+  async getByFilters(ctx) {
+    // const index = ctx.params.index && !isNaN(ctx.params.index) ? parseInt(ctx.params.index) : 0
+    const eyeColor = ctx.params.eyeColor
+    const country = ctx.params.country
+    const gender = ctx.params.gender
+    
+    // if (index > 0) {
+      // const filter = { index: index, eyeColor: eyeColor, country: country, gender: gender }
+ 
+    var filter = { eyeColor: eyeColor, country: country, gender: gender }
+ 
+      const data = await repository.find(filter)
+      if (data) {
+        ctx.body = data
+      } else {
+        ctx.throw(404, `No se ha encontrado a la(s) persona(s)`)
+      }
+    // } else {
+    //  ctx.throw(422, `Valor ${ctx.params.index} no soportado`)
+    // }
+  }
+
   /**
    *
    * @param {object} ctx: contexto de koa que contiene los parameteros de la solicitud, en este caso desde el body,
